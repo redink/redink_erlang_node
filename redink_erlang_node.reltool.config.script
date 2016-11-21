@@ -1,0 +1,16 @@
+OLDCopySysConfig = {copy,"files/sys.config","releases/{{rel_vsn}}/sys.config"},
+case os:getenv("SYS_CONFIG") of
+    false ->
+        io:format(" ** using default sys.config~n"),
+        CONFIG;
+    []    ->
+        io:format(" ** using default sys.config~n"),
+        CONFIG;
+    Val   ->
+        io:format(" ** using ~p sys.config~n", [Val]),
+        {overlay, OLDOverLayList} = lists:keyfind(overlay, 1, CONFIG),
+        NewCopySysConfig = {copy, "files/sys.config." ++ Val, "releases/{{rel_vsn}}/sys.config"},
+        NewOverLayList = [NewCopySysConfig | lists:delete(OLDCopySysConfig, OLDOverLayList)],
+        New = lists:keyreplace(overlay, 1, CONFIG, {overlay, NewOverLayList}),
+        New
+end.

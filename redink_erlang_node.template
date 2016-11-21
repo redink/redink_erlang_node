@@ -1,0 +1,36 @@
+{variables, [{appid, "myapp"}, {node, "mynodename"}, {cookie, "mynodecookie"}]}.
+
+%% ./
+{template, "redink_erlang_node.rebar.config", "./rebar.config"}.
+
+%% ./rel
+{dir, "rel"}.
+{template, "redink_erlang_node.reltool.config", "rel/reltool.config"}.
+{template, "redink_erlang_node.reltool.config.script", "rel/reltool.config.script"}.
+{template, "redink_erlang_node.reltool.config.template", "rel/reltool.config.template"}.
+
+
+{dir, "rel/files"}.
+{file, "redink_erlang_node.install_upgrade.escript", "rel/files/install_upgrade.escript"}.
+{file, "redink_erlang_node.sys.config",     "rel/files/sys.config"}.
+{file, "redink_erlang_node.erl",            "rel/files/erl"}.
+{chmod, 8#744,                              "rel/files/erl"}.
+{file, "redink_erlang_node.runner",         "rel/files/{{appid}}"}.
+{chmod, 8#744,                              "rel/files/{{appid}}"}.
+{template, "redink_erlang_node.runner.cmd", "rel/files/{{appid}}.cmd"}.
+{chmod, 8#744,                              "rel/files/{{appid}}.cmd"}.
+{file, "redink_erlang_node.nodetool",       "rel/files/nodetool"}.
+{chmod, 8#744,                              "rel/files/nodetool"}.
+{template, "redink_erlang_node.vm.args",    "rel/files/vm.args"}.
+{file, "redink_erlang_node.start_erl.cmd",  "rel/files/start_erl.cmd"}.
+
+%% ./apps
+{dir, "apps/{{appid}}"}.
+
+%% ./deps
+{dir, "deps"}.
+
+%% ./support
+{dir, "support"}.
+{template, "redink_erlang_node.upgrade.sh", "support/upgrade.sh"}.
+{chmod, 8#744, "support/upgrade.sh"}.
